@@ -66,6 +66,8 @@ GENAI-TAX-DOC-NOTICE-PARSING/        (root/workspace)
 
 ## 🏗️ Architecture
 
+## TBD - Changed the approach a bit so I need to clean this up. **Work in progress**
+
 ### Two-Workflow Design
 - **Workflow 1**: Email Monitor (Stateful Logic App) - Permanent, handles email processing
 - **Workflow 2**: Document Processor (Agent Workflow) - Evolves from basic to AI-enhanced
