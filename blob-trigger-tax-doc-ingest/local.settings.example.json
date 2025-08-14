@@ -1,0 +1,15 @@
+{
+    "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage__blobServiceUri": "https://YOUR_STORAGE_ACCOUNT.blob.core.windows.net/",
+    "AzureWebJobsStorage__queueServiceUri": "https://YOUR_STORAGE_ACCOUNT.queue.core.windows.net/",
+    "AzureWebJobsStorage__credential": "azurecli",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "StorageAccountName": "YOUR_STORAGE_ACCOUNT_NAME",
+    "StorageConnection__blobServiceUri": "https://YOUR_STORAGE_ACCOUNT.blob.core.windows.net/",
+    "StorageConnection__queueServiceUri": "https://YOUR_STORAGE_ACCOUNT.queue.core.windows.net/",
+    "StorageConnection__credential": "azurecli",
+    "ContentUnderstanding:Endpoint": "https://YOUR_SERVICE-resource.cognitiveservices.azure.com/contentunderstanding/analyzers/CDM-Smith-Tax-Analyzer-v2:analyze",
+    "ContentUnderstanding:ApiKey": "YOUR_SERVICE_KEY"
+  }
+}
