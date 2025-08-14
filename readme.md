@@ -3,7 +3,7 @@
 A comprehensive Azure-based solution for automating the receipt, processing, and routing of tax documents using Logic Apps Standard, Azure AI Content Understanding, and Microsoft 365 integration.
 
 # IMPORTANT NOTE #
-I have not started build any logic apps for this yet.
+I have not started build to any logic apps for this yet.  For now we have to get the basic document processing logic finished (the ahrd stuff).
 
 ## 🎯 Solution Overview
 
