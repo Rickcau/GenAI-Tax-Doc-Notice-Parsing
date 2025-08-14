@@ -1,0 +1,27 @@
+{
+  "description": "Simplified Tax Document Analyzer - 2 Fields Only",
+  "baseAnalyzerId": "prebuilt-documentAnalyzer",
+  "config": {
+    "returnDetails": false,
+    "estimateFieldSourceAndConfidence": false,
+    "enableOcr": true,
+    "enableLayout": true,
+    "enableFormula": false,
+    "disableContentFiltering": false,
+    "tableFormat": "html"
+  },
+  "fieldSchema": {
+    "fields": {
+      "taxpayer_name": {
+        "type": "string",
+        "method": "extract",
+        "description": "Extract the primary taxpayer's full name or business entity name"
+      },
+      "tax_jurisdiction": {
+        "type": "string",
+        "method": "extract",
+        "description": "The governmental authority responsible for the tax"
+      }
+    }
+  }
+}

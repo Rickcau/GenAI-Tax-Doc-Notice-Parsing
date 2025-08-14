@@ -1,0 +1,43 @@
+{
+    "id": "22c08280-e4ac-47a4-82e9-a8aca12e004b",
+    "status": "Succeeded",
+    "result": {
+        "analyzerId": "MyTestAnalyzer-v2",
+        "apiVersion": "2025-05-01-preview",
+        "createdAt": "2025-08-14T21:54:42Z",
+        "warnings": [
+            {
+                "code": "JailbreakAttack",
+                "message": "A Jailbreak was detected. Fields are not extracted",
+                "target": "Result.Contents[0]"
+            }
+        ],
+        "contents": [
+            {
+                "markdown": "CITY OF CHARLOTTE\nBusiness License Office\n600 East 4th Street, Charlotte, NC 28202\n\nNotice Date: 8/4/2025\n\n<!-- PageNumber=\"Page: 1 of 1\" -->\n\nNotice Number: BL-2025-889765\n\nContact: See below\n\nEIN: 56-1234567\n\nQUEEN CITY SERVICES LLC\n\n2468 SOUTH BLVD SUITE 150\nCHARLOTTE, NC 28203-6789\n\nBUSINESS PRIVILEGE LICENSE TAX\n\nTOTAL AMOUNT DUE: $5,847.25\nDue Date: April 15, 2025\n\nDear Taxpayer,\n\nWe have determined that additional tax is due for the period specified above. This notice includes\nthe unpaid tax plus applicable penalties and interest that have accrued to date.\n\nWhat you need to do:\n\n. Pay the full amount by April 15, 2025 to avoid additional penalties\n· Make payment by check, money order, or electronic transfer\nKdecludo this notice dumberswith youadaymener listed above.\n\nBLSontaotvusimmediatelyifyoubelieve this notice is incorrect\n",
+                "fields": {
+                    "taxpayer_name": {
+                        "type": "string",
+                        "valueString": "QUEEN CITY SERVICES LLC"
+                    },
+                    "tax_jurisdiction": {
+                        "type": "string",
+                        "valueString": "CITY OF CHARLOTTE"
+                    }
+                },
+                "kind": "document",
+                "startPageNumber": 1,
+                "endPageNumber": 1,
+                "unit": "inch",
+                "pages": [
+                    {
+                        "pageNumber": 1,
+                        "angle": -0.0188,
+                        "width": 8.2639,
+                        "height": 11.6806
+                    }
+                ]
+            }
+        ]
+    }
+}

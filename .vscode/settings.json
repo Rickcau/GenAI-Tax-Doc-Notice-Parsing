@@ -1,0 +1,14 @@
+{
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.suppressProject": true,
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Program Files\\dotnet;${env:PATH}"
+    },
+    "omnisharp.dotNetCliPaths": [
+        "PATH": "C:\\Program Files\\dotnet;${env:PATH}"
+    ],
+    "azureFunctions.deploySubpath": "blob-trigger-tax-doc-ingest/bin/Release/net9.0/publish",
+    "azureFunctions.projectLanguage": "C#",
+    "azureFunctions.projectRuntime": "~4",
+    "azureFunctions.preDeployTask": "publish (functions)"
+}

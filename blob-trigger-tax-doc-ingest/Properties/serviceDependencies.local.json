@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "appInsights1": {
+      "type": "appInsights.sdk"
+    },
+    "storage1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.ServiceLinker/locations/westus/connectors/taxdocstorageconnection_86B0045E99, /subscriptions/1473a4a4-1482-429b-be08-bac4e5bfdfd7/resourceGroups/rg-cdm-smith-west/providers/Microsoft.ServiceLinker/locations/westus/connectors/taxdocstorageconnection_59DB0E7CDD",
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/stgcdmtaxdocswest",
+      "type": "storage.azure",
+      "connectionId": "tax-doc-storage-connection",
+      "dynamicId": null
+    },
+    "storage2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.ServiceLinker/locations/westus/connectors/taxdocstorageconnection1_55ECB9D8CD, /subscriptions/1473a4a4-1482-429b-be08-bac4e5bfdfd7/resourceGroups/rg-cdm-smith-west/providers/Microsoft.ServiceLinker/locations/westus/connectors/taxdocstorageconnection1_4EB81B264C",
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/stgcdmtaxdocswest",
+      "type": "storage.azure",
+      "connectionId": "tax-doc-storage-connection1",
+      "dynamicId": null
+    },
+    "secrets1": {
+      "secretStore": null,
+      "resourceId": null,
+      "type": "secrets.user",
+      "connectionId": null
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+	"scenario": "prebuilt-documentAnalyzer",
+	"description": "Tax Doc Analyzer Schema for 10 Synthetic Tax Documents we have generated",
+    "baseAnalyzerId": "prebuilt-documentAnalyzer",
+	"config": {
+		"returnDetails": false,
+		"estimateFieldSourceAndConfidence": false,
+        "enabledOcr": true,
+        "enableLayout": true, 
+        "disableContentFiltering": false,
+		"tableFormat": "html"
+	},
+	"fieldSchema": {
+		"fields": {
+			"description": {
+				"type": "string",
+				"method": "extract",
+				"description": "Provide a brief description of what this document is about, less than 150 words."
+			},
+			"payment_instructions": {
+				"type": "string",
+				"method": "extract",
+				"description": "Details on how and where to submit payment, including methods (online, mail), website URLs, or check payee information"
+			},
+			"payment_interest_breakdown": {
+				"type": "string",
+				"method": "extract",
+				"description": "If the notice breaks out how much of the amount due is penalty vs. interest, this is useful for tracking and contesting charges."
+			},
+			"assessment_code_or_form_number": {
+				"type": "string",
+				"method": "extract",
+				"description": "IRS/State form number or internal assessment code (e.g., CP504, SC-1120, etc.) which can aid in automating routing or handling logic."
+			},
+			"taxpayer_name": {
+				"type": "string",
+				"method": "extract",
+				"description": "Extract the primary taxpayer's full name or business entity name. Look for company names, individual names, or business entity names on the document"
+			},
+			"tax_jurisdiction": {
+				"type": "string",
+				"method": "extract",
+				"description": "The governmental authority or jurisdiction responsible for the tax. Examples: 'Federal/IRS', 'South Carolina', 'Mecklenburg County', 'City of Charlotte', 'California', 'Texas', 'New York State'"
+			},
+			"notice_type": {
+				"type": "string",
+				"method": "extract",
+				"description": "The type of tax notice or document. Examples: 'Sales and Use Tax Assessment', 'Property Tax Bill', 'IRS Balance Due Notice', 'Payroll Tax Late Deposit Penalty', 'Federal Excise Tax Examination', 'Business Privilege License Tax', 'Workers Compensation Audit', 'Franchise Tax Notice', 'Corporation Tax Audit Assessment'"
+			},
+			"ein_tax_id": {
+				"type": "string",
+				"method": "extract",
+				"description": "Employer Identification Number (EIN) or other tax identification number assigned to the taxpayer"
+			},
+			"ein_tax_id_notes": {
+				"type": "string",
+				"method": "extract",
+				"description": "Notes or additional information related to the EIN or tax ID e.g. is this only the last 4 digits?"
+			},
+			"employee_id_number": {
+				"type": "number",
+				"method": "extract",
+				"description": "This is the employee ID number of the person from the Tax Agency"
+			},
+			"contact_phone_number": {
+				"type": "string",
+				"method": "extract",
+				"description": "This is the phone number of the person from the Tax Agency"
+			},
+			"contact_fax_number": {
+				"type": "string",
+				"method": "extract",
+				"description": "This is the fax number of the person from the Tax Agency"
+			},
+			"contact_email_address": {
+				"type": "string",
+				"method": "extract",
+				"description": "This is the email address of the person from the Tax Agency"
+			},
+			"total_amount_due": {
+				"type": "number",
+				"method": "extract",
+				"description": "The total monetary amount owed including tax, penalties, and interest. Convert currency format (e.g., '$24,567.89') to numerical value"
+			},
+			"filing_deadline": {
+				"type": "date",
+				"method": "extract",
+				"description": "The due date for payment or filing to avoid additional penalties. Look for 'Due Date' or similar field"
+			},
+			"notice_number": {
+				"type": "string",
+				"method": "extract",
+				"description": "The unique identifier or reference number for the tax notice. Examples: 'AST-2025-447821', 'CP14-0001', 'SUTA-2025-001'"
+			},
+			"notice_date": {
+				"type": "date",
+				"method": "extract",
+				"description": "The date the tax notice was generated or issued"
+			},
+			"taxpayer_address": {
+				"type": "string",
+				"method": "extract",
+				"description": "Complete mailing address of the taxpayer including street, city, state, and ZIP code"
+			},
+			"tax_authority": {
+				"type": "string",
+				"method": "extract",
+				"description": "Name, phone number, email, or department contact listed on the notice for inquiries or appeals."
+			},
+			"tax_authority_address": {
+				"type": "string",
+				"method": "extract",
+				"description": "Complete address of the issuing tax authority or department"
+			},
+			"dispute_or_appeal_deadline": {
+				"type": "date",
+				"method": "extract",
+				"description": "If the notice includes a deadline to dispute or appeal, this is distinct from the payment deadline and critical to track."
+			},
+			"payment_coupon_remittance_slip": {
+				"type": "boolean",
+				"method": "extract",
+				"description": "Whether the notice includes a detachable coupon or barcode used for payment submission (useful for mail processing or OCR workflows)."
+			},
+			"tax_period": {
+				"type": "string",
+				"method": "extract",
+				"description": "The tax period or year this assessment covers, if specified in the document"
+			},
+			"action_needed": {
+				"type": "string",
+				"method": "extract",
+				"description": "Extract the action needed from the taxpayer, if specified in the document, if not use the AI Model to access the action that is needed, but make sure you highlight that based on the content of the document the recommended action is a suggestion but it not spelled out in the document."
+			}
+		}
+	}
+}

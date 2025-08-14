@@ -1,0 +1,82 @@
+{
+    "id": "1ad784bd-30d3-4bcc-a8ca-9e505e9214a1",
+    "status": "Succeeded",
+    "result": {
+        "analyzerId": "CDM-Smith-Tax-Analyzer-v2",
+        "apiVersion": "2025-05-01-preview",
+        "createdAt": "2025-08-12T00:40:17Z",
+        "warnings": [
+            {
+                "code": "JailbreakAttack",
+                "message": "A Jailbreak was detected. Fields are not extracted",
+                "target": "Result.Contents[0]"
+            }
+        ],
+        "contents": [
+            {
+                "markdown": "CITY OF CHARLOTTE\nBusiness License Office\n600 East 4th Street, Charlotte, NC 28202\n\nNotice Date: 8/4/2025\n\n<!-- PageNumber=\"Page: 1 of 1\" -->\n\nNotice Number: BL-2025-889765\n\nContact: See below\n\nEIN: 56-1234567\n\nQUEEN CITY SERVICES LLC\n\n2468 SOUTH BLVD SUITE 150\nCHARLOTTE, NC 28203-6789\n\nBUSINESS PRIVILEGE LICENSE TAX\n\nTOTAL AMOUNT DUE: $5,847.25\nDue Date: April 15, 2025\n\nDear Taxpayer,\n\nWe have determined that additional tax is due for the period specified above. This notice includes\nthe unpaid tax plus applicable penalties and interest that have accrued to date.\n\nWhat you need to do:\n\n. Pay the full amount by April 15, 2025 to avoid additional penalties\n· Make payment by check, money order, or electronic transfer\nKdecludo this notice dumberswith youadaymener listed above.\n\nBLSontaotvusimmediatelyifyoubelieve this notice is incorrect\n",
+                "fields": {
+                    "taxpayer_name": {
+                        "type": "string",
+                        "valueString": "QUEEN CITY SERVICES LLC"
+                    },
+                    "tax_jurisdiction": {
+                        "type": "string",
+                        "valueString": "City of Charlotte"
+                    },
+                    "notice_type": {
+                        "type": "string",
+                        "valueString": "Business Privilege License Tax"
+                    },
+                    "ein_tax_id": {
+                        "type": "string",
+                        "valueString": "56-1234567"
+                    },
+                    "total_amount_due": {
+                        "type": "number",
+                        "valueNumber": 5847.25
+                    },
+                    "filing_deadline": {
+                        "type": "date",
+                        "valueDate": "2025-04-15"
+                    },
+                    "notice_number": {
+                        "type": "string",
+                        "valueString": "BL-2025-889765"
+                    },
+                    "notice_date": {
+                        "type": "date",
+                        "valueDate": "2025-08-04"
+                    },
+                    "taxpayer_address": {
+                        "type": "string",
+                        "valueString": "2468 SOUTH BLVD SUITE 150 CHARLOTTE, NC 28203-6789"
+                    },
+                    "tax_authority_address": {
+                        "type": "string",
+                        "valueString": "600 East 4th Street, Charlotte, NC 28202"
+                    },
+                    "tax_period": {
+                        "type": "string"
+                    },
+                    "action_needed": {
+                        "type": "string",
+                        "valueString": "Pay the full amount by April 15, 2025 to avoid additional penalties"
+                    }
+                },
+                "kind": "document",
+                "startPageNumber": 1,
+                "endPageNumber": 1,
+                "unit": "inch",
+                "pages": [
+                    {
+                        "pageNumber": 1,
+                        "angle": -0.0188,
+                        "width": 8.2639,
+                        "height": 11.6806
+                    }
+                ]
+            }
+        ]
+    }
+}

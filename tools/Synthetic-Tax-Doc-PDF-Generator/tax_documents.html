@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthetic Tax Documents PDF Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .main-content {
+            padding: 40px;
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .control-group {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .control-group h3 {
+            margin: 0 0 20px 0;
+            color: #2c3e50;
+            font-size: 1.3rem;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 5px;
+            min-width: 150px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .progress-container {
+            display: none;
+            margin: 20px 0;
+            padding: 20px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .document-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .document-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .document-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .document-card h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        .document-card p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .document-card .amount {
+            font-weight: bold;
+            color: #dc3545;
+            font-size: 1.1rem;
+        }
+        
+        .status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .status-ready {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-generating {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .instructions h3 {
+            margin: 0 0 15px 0;
+            color: #2c3e50;
+        }
+        
+        .instructions ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ Tax Document PDF Generator</h1>
+            <p>Generate realistic synthetic tax documents for AI agent testing</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="controls">
+                <div class="control-group">
+                    <h3>🎯 Quick Actions</h3>
+                    <button class="btn btn-success" onclick="generateAllPDFs()">
+                        📄 Generate All 10 PDFs
+                    </button>
+                    <button class="btn" onclick="generateRandomPDF()">
+                        🎲 Generate Random PDF
+                    </button>
+                    <button class="btn btn-warning" onclick="clearGenerated()">
+                        🗑️ Clear Generated Files
+                    </button>
+                </div>
+                
+                <div class="control-group">
+                    <h3>⚙️ Custom Generation</h3>
+                    <select id="documentType" class="form-control" style="padding: 8px; border-radius: 5px; margin-bottom: 10px; width: 100%;">
+                        <option value="">Select Document Type</option>
+                        <option value="irs_balance">IRS Balance Due Notice</option>
+                        <option value="state_unemployment">State Unemployment Tax</option>
+                        <option value="sales_tax">Sales Tax Assessment</option>
+                        <option value="payroll_penalty">Payroll Tax Penalty</option>
+                        <option value="property_tax">Property Tax Bill</option>
+                        <option value="franchise_tax">Franchise Tax Notice</option>
+                        <option value="workers_comp">Workers' Comp Audit</option>
+                        <option value="state_income">State Income Tax</option>
+                        <option value="excise_tax">Federal Excise Tax</option>
+                        <option value="business_license">Business License Tax</option>
+                    </select>
+                    <button class="btn" onclick="generateSelectedPDF()">
+                        🎯 Generate Selected PDF
+                    </button>
+                </div>
+            </div>
+            
+            <div class="progress-container" id="progressContainer">
+                <h4>Generating PDFs...</h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">Preparing documents...</p>
+            </div>
+            
+            <div class="document-list" id="documentList">
+                <!-- Generated documents will appear here -->
+            </div>
+            
+            <div class="instructions">
+                <h3>📋 How to Use</h3>
+                <ol>
+                    <li><strong>Generate PDFs:</strong> Click "Generate All 10 PDFs" to create a complete set of test documents</li>
+                    <li><strong>Individual Generation:</strong> Select a specific document type and generate individual PDFs</li>
+                    <li><strong>Download:</strong> Click on any generated document card to download the PDF</li>
+                    <li><strong>Email Testing:</strong> Attach the generated PDFs to emails for your AI agent testing</li>
+                    <li><strong>Metadata Extraction:</strong> Each PDF contains realistic data for testing your extraction algorithms</li>
+                </ol>
+                <p><strong>Note:</strong> These are synthetic documents with realistic formatting but fake data - perfect for AI training and testing!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { jsPDF } = window.jspdf;
+        const generatedDocuments = [];
+
+        const documentTemplates = {
+            irs_balance: {
+                title: "IRS Balance Due Notice",
+                agency: "INTERNAL REVENUE SERVICE",
+                subAgency: "Department of the Treasury",
+                address: "Kansas City, MO 64999-0010",
+                noticeNumber: "CP14-0001",
+                amount: "$18,647.23",
+                dueDate: "April 14, 2025",
+                company: "ACME MANUFACTURING INC",
+                companyAddress: "1234 INDUSTRIAL BLVD\nCHARLOTTE, NC 28269-4532",
+                ein: "45-2847392"
+            },
+            state_unemployment: {
+                title: "Unemployment Insurance Tax Notice",
+                agency: "NORTH CAROLINA DEPARTMENT OF COMMERCE",
+                subAgency: "Division of Employment Security",
+                address: "P.O. Box 25903, Raleigh, NC 27611-5903",
+                noticeNumber: "SUTA-2025-001",
+                amount: "$7,892.45",
+                dueDate: "April 30, 2025",
+                company: "TECH SOLUTIONS LLC",
+                companyAddress: "5678 RESEARCH TRIANGLE PKWY\nDURHAM, NC 27709-3421",
+                ein: "74-8765432"
+            },
+            sales_tax: {
+                title: "Sales and Use Tax Assessment",
+                agency: "SOUTH CAROLINA DEPARTMENT OF REVENUE",
+                subAgency: "Sales Tax Division",
+                address: "300A Outlet Pointe Blvd, Columbia, SC 29210-5495",
+                noticeNumber: "AST-2025-447821",
+                amount: "$24,567.89",
+                dueDate: "April 17, 2025",
+                company: "RETAIL PLUS STORES INC",
+                companyAddress: "9876 COMMERCE CENTER DR\nCOLUMBIA, SC 29201-8765",
+                ein: "58-9876543"
+            },
+            payroll_penalty: {
+                title: "Payroll Tax Late Deposit Penalty",
+                agency: "INTERNAL REVENUE SERVICE",
+                subAgency: "Ogden Compliance Services",
+                address: "1973 N Rulon White Blvd, Ogden, UT 84404",
+                noticeNumber: "CP207-9984",
+                amount: "$3,456.78",
+                dueDate: "April 24, 2025",
+                company: "GLOBAL CONSULTING GROUP",
+                companyAddress: "2468 EXECUTIVE CENTER\nATLANTA, GA 30339-7412",
+                ein: "74-3698521"
+            },
+            property_tax: {
+                title: "Property Tax Bill",
+                agency: "MECKLENBURG COUNTY TAX OFFICE",
+                subAgency: "Property Tax Division",
+                address: "700 East 4th Street, Charlotte, NC 28202-2800",
+                noticeNumber: "2025-PT-889421",
+                amount: "$47,829.33",
+                dueDate: "January 5, 2026",
+                company: "INDUSTRIAL PROPERTIES LLC",
+                companyAddress: "3579 MANUFACTURING WAY\nCHARLOTTE, NC 28208-1145",
+                ein: "82-7654321"
+            },
+            franchise_tax: {
+                title: "Franchise Tax Notice",
+                agency: "TEXAS COMPTROLLER OF PUBLIC ACCOUNTS",
+                subAgency: "Revenue Processing Division",
+                address: "P.O. Box 149104, Austin, TX 78714-9104",
+                noticeNumber: "FT-2025-778901",
+                amount: "$15,234.56",
+                dueDate: "May 15, 2025",
+                company: "LONE STAR ENTERPRISES INC",
+                companyAddress: "8765 COMMERCE PKWY SUITE 200\nDALLAS, TX 75201-4532",
+                ein: "75-4567890"
+            },
+            workers_comp: {
+                title: "Workers' Compensation Audit",
+                agency: "CALIFORNIA DEPARTMENT OF INDUSTRIAL RELATIONS",
+                subAgency: "Division of Workers' Compensation",
+                address: "1515 Clay Street, Oakland, CA 94612",
+                noticeNumber: "WC-2025-445782",
+                amount: "$28,945.67",
+                dueDate: "April 27, 2025",
+                company: "PACIFIC CONSTRUCTION CO",
+                companyAddress: "4567 INDUSTRIAL BLVD\nSAN FRANCISCO, CA 94107-2341",
+                ein: "94-6543210"
+            },
+            state_income: {
+                title: "Corporation Tax Audit Assessment",
+                agency: "NEW YORK STATE DEPARTMENT OF TAXATION AND FINANCE",
+                subAgency: "Corporate Tax Bureau",
+                address: "W.A. Harriman Campus, Albany, NY 12227",
+                noticeNumber: "NY-CT-2025-556789",
+                amount: "$89,456.33",
+                dueDate: "April 29, 2025",
+                company: "EMPIRE STATE TECHNOLOGIES INC",
+                companyAddress: "1357 BROADWAY SUITE 1200\nNEW YORK, NY 10018-7865",
+                ein: "14-7890123"
+            },
+            excise_tax: {
+                title: "Federal Excise Tax Examination",
+                agency: "INTERNAL REVENUE SERVICE",
+                subAgency: "Excise Tax Examination Branch",
+                address: "201 W Rivercenter Blvd, Covington, KY 41019",
+                noticeNumber: "EX-720-2025-334",
+                amount: "$145,678.90",
+                dueDate: "April 25, 2025",
+                company: "AMERICAN FUEL DISTRIBUTORS INC",
+                companyAddress: "7890 REFINERY ROW\nHOUSTON, TX 77002-5643",
+                ein: "58-4721893"
+            },
+            business_license: {
+                title: "Business Privilege License Tax",
+                agency: "CITY OF CHARLOTTE",
+                subAgency: "Business License Office",
+                address: "600 East 4th Street, Charlotte, NC 28202",
+                noticeNumber: "BL-2025-889765",
+                amount: "$5,847.25",
+                dueDate: "April 15, 2025",
+                company: "QUEEN CITY SERVICES LLC",
+                companyAddress: "2468 SOUTH BLVD SUITE 150\nCHARLOTTE, NC 28203-6789",
+                ein: "56-1234567"
+            }
+        };
+
+        function generatePDF(templateKey, customData = {}) {
+            const template = { ...documentTemplates[templateKey], ...customData };
+            const doc = new jsPDF();
+            
+            // Set up document formatting
+            const pageWidth = doc.internal.pageSize.width;
+            const margin = 20;
+            const contentWidth = pageWidth - (margin * 2);
+            
+            // Header
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text(template.agency, pageWidth / 2, 25, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text(template.subAgency, pageWidth / 2, 35, { align: 'center' });
+            doc.text(template.address, pageWidth / 2, 45, { align: 'center' });
+            
+            // Line separator
+            doc.line(margin, 55, pageWidth - margin, 55);
+            
+            // Notice information
+            let yPos = 70;
+            doc.setFontSize(10);
+            doc.text(`Notice Date: ${new Date().toLocaleDateString()}`, margin, yPos);
+            doc.text(`Notice Number: ${template.noticeNumber}`, margin, yPos + 10);
+            doc.text(`EIN: ${template.ein}`, margin, yPos + 20);
+            
+            doc.text('Page: 1 of 1', pageWidth - margin - 30, yPos);
+            doc.text('Contact: See below', pageWidth - margin - 30, yPos + 10);
+            
+            // Company information box
+            yPos = 100;
+            doc.rect(margin, yPos, contentWidth, 30);
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text(template.company, margin + 5, yPos + 10);
+            doc.setFont(undefined, 'normal');
+            doc.setFontSize(10);
+            const addressLines = template.companyAddress.split('\n');
+            addressLines.forEach((line, index) => {
+                doc.text(line, margin + 5, yPos + 20 + (index * 8));
+            });
+            
+            // Document title
+            yPos = 145;
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(template.title.toUpperCase(), pageWidth / 2, yPos, { align: 'center' });
+            
+            // Amount due box
+            yPos = 165;
+            doc.setFillColor(255, 243, 205); // Light yellow background
+            doc.rect(margin, yPos, contentWidth, 25, 'F');
+            doc.rect(margin, yPos, contentWidth, 25, 'S');
+            
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text(`TOTAL AMOUNT DUE: ${template.amount}`, pageWidth / 2, yPos + 12, { align: 'center' });
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            doc.text(`Due Date: ${template.dueDate}`, pageWidth / 2, yPos + 20, { align: 'center' });
+            
+            // Main content
+            yPos = 205;
+            doc.setFontSize(11);
+            doc.setFont(undefined, 'bold');
+            doc.text('Dear Taxpayer,', margin, yPos);
+            
+            doc.setFont(undefined, 'normal');
+            yPos += 15;
+            const mainText = `We have determined that additional tax is due for the period specified above. This notice ` +
+                           `includes the unpaid tax plus applicable penalties and interest that have accrued to date.`;
+            
+            const splitText = doc.splitTextToSize(mainText, contentWidth);
+            doc.text(splitText, margin, yPos);
+            
+            // Payment instructions
+            yPos += (splitText.length * 6) + 20;
+            doc.setFont(undefined, 'bold');
+            doc.text('What you need to do:', margin, yPos);
+            
+            doc.setFont(undefined, 'normal');
+            yPos += 10;
+            const instructions = [
+                `• Pay the full amount by ${template.dueDate} to avoid additional penalties`,
+                '• Make payment by check, money order, or electronic transfer',
+                '• Include this notice number with your payment',
+                '• Contact us immediately if you believe this notice is incorrect'
+            ];
+            
+            instructions.forEach(instruction => {
+                doc.text(instruction, margin, yPos);
+                yPos += 8;
+            });
+            
+            // Footer
+            yPos = 270;
+            doc.line(margin, yPos, pageWidth - margin, yPos);
+            doc.setFontSize(8);
+            doc.text('Keep this notice for your records. Questions? Contact the number listed above.', margin, yPos + 8);
+            doc.text(`${template.title} - Generated ${new Date().toLocaleDateString()}`, margin, yPos + 16);
+            
+            return doc;
+        }
+
+        function downloadPDF(doc, filename) {
+            doc.save(filename);
+        }
+
+        function generateAllPDFs() {
+            showProgress();
+            const keys = Object.keys(documentTemplates);
+            let completed = 0;
+            
+            keys.forEach((key, index) => {
+                setTimeout(() => {
+                    const doc = generatePDF(key);
+                    const filename = `tax_notice_${key}_${Date.now()}.pdf`;
+                    
+                    // Store for download
+                    const pdfData = doc.output('datauristring');
+                    generatedDocuments.push({
+                        key: key,
+                        filename: filename,
+                        data: pdfData,
+                        template: documentTemplates[key],
+                        generated: new Date().toLocaleString()
+                    });
+                    
+                    completed++;
+                    updateProgress((completed / keys.length) * 100, `Generated ${completed} of ${keys.length} documents`);
+                    
+                    if (completed === keys.length) {
+                        hideProgress();
+                        updateDocumentList();
+                        alert(`Successfully generated ${keys.length} PDF documents!`);
+                    }
+                }, index * 500); // Stagger generation
+            });
+        }
+
+        function generateRandomPDF() {
+            const keys = Object.keys(documentTemplates);
+            const randomKey = keys[Math.floor(Math.random() * keys.length)];
+            
+            showProgress();
+            updateProgress(50, 'Generating random document...');
+            
+            setTimeout(() => {
+                const doc = generatePDF(randomKey);
+                const filename = `tax_notice_${randomKey}_${Date.now()}.pdf`;
+                
+                const pdfData = doc.output('datauristring');
+                generatedDocuments.push({
+                    key: randomKey,
+                    filename: filename,
+                    data: pdfData,
+                    template: documentTemplates[randomKey],
+                    generated: new Date().toLocaleString()
+                });
+                
+                updateProgress(100, 'Document generated!');
+                setTimeout(() => {
+                    hideProgress();
+                    updateDocumentList();
+                }, 500);
+            }, 1000);
+        }
+
+        function generateSelectedPDF() {
+            const select = document.getElementById('documentType');
+            const selectedKey = select.value;
+            
+            if (!selectedKey) {
+                alert('Please select a document type first.');
+                return;
+            }
+            
+            showProgress();
+            updateProgress(50, `Generating ${documentTemplates[selectedKey].title}...`);
+            
+            setTimeout(() => {
+                const doc = generatePDF(selectedKey);
+                const filename = `tax_notice_${selectedKey}_${Date.now()}.pdf`;
+                
+                const pdfData = doc.output('datauristring');
+                generatedDocuments.push({
+                    key: selectedKey,
+                    filename: filename,
+                    data: pdfData,
+                    template: documentTemplates[selectedKey],
+                    generated: new Date().toLocaleString()
+                });
+                
+                updateProgress(100, 'Document generated!');
+                setTimeout(() => {
+                    hideProgress();
+                    updateDocumentList();
+                }, 500);
+            }, 1000);
+        }
+
+        function clearGenerated() {
+            if (confirm('Are you sure you want to clear all generated documents?')) {
+                generatedDocuments.length = 0;
+                updateDocumentList();
+            }
+        }
+
+        function updateDocumentList() {
+            const listContainer = document.getElementById('documentList');
+            
+            if (generatedDocuments.length === 0) {
+                listContainer.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">No documents generated yet. Click "Generate All 10 PDFs" to get started!</p>';
+                return;
+            }
+            
+            listContainer.innerHTML = generatedDocuments.map(doc => `
+                <div class="document-card" onclick="downloadDocument('${doc.filename}', '${doc.data}')">
+                    <h4>${doc.template.title}</h4>
+                    <p><strong>Company:</strong> ${doc.template.company}</p>
+                    <p><strong>Notice:</strong> ${doc.template.noticeNumber}</p>
+                    <p class="amount">Amount: ${doc.template.amount}</p>
+                    <p><strong>Due:</strong> ${doc.template.dueDate}</p>
+                    <p><strong>Generated:</strong> ${doc.generated}</p>
+                    <p><span class="status status-ready">Ready to Download</span></p>
+                </div>
+            `).join('');
+        }
+
+        function downloadDocument(filename, dataUri) {
+            const link = document.createElement('a');
+            link.href = dataUri;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function showProgress() {
+            document.getElementById('progressContainer').style.display = 'block';
+        }
+
+        function hideProgress() {
+            document.getElementById('progressContainer').style.display = 'none';
+        }
+
+        function updateProgress(percent, text) {
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').textContent = text;
+        }
+
+        // Initialize
+        updateDocumentList();
+    </script>
+</body>
+</html>

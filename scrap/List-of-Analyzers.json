@@ -1,0 +1,608 @@
+{
+    "value": [
+        {
+            "analyzerId": "prebuilt-callCenter",
+            "description": "Analyze call center conversations to extract transcripts, summaries, sentiment, and more.",
+            "createdAt": "2025-05-01T00:00:00Z",
+            "config": {
+                "returnDetails": true,
+                "disableContentFiltering": false
+            },
+            "fieldSchema": {
+                "name": "PostCallAnalytics",
+                "fields": {
+                    "Summary": {
+                        "type": "string",
+                        "description": "A one-paragraph summary"
+                    },
+                    "Topics": {
+                        "type": "array",
+                        "description": "Top 5 topics mentioned",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "Companies": {
+                        "type": "array",
+                        "description": "List of companies mentioned",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "People": {
+                        "type": "array",
+                        "description": "List of people mentioned",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Name": {
+                                    "type": "string",
+                                    "description": "Person's name"
+                                },
+                                "Role": {
+                                    "type": "string",
+                                    "description": "Person's title/role"
+                                }
+                            }
+                        }
+                    },
+                    "Sentiment": {
+                        "type": "string",
+                        "method": "classify",
+                        "description": "Overall sentiment",
+                        "enum": [
+                            "Positive",
+                            "Neutral",
+                            "Negative"
+                        ]
+                    },
+                    "Categories": {
+                        "type": "array",
+                        "method": "classify",
+                        "description": "List of relevant categories",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "Agriculture",
+                                "Business",
+                                "Finance",
+                                "Health",
+                                "Insurance",
+                                "Mining",
+                                "Pharmaceutical",
+                                "Retail",
+                                "Technology",
+                                "Transportation"
+                            ]
+                        }
+                    }
+                }
+            },
+            "warnings": [],
+            "status": "ready",
+            "processingLocation": "geography",
+            "mode": "standard"
+        },
+        {
+            "analyzerId": "prebuilt-audioAnalyzer",
+            "description": "Transcribe conversations and extract summaries.",
+            "createdAt": "2025-05-01T00:00:00Z",
+            "config": {
+                "returnDetails": true,
+                "disableContentFiltering": false
+            },
+            "fieldSchema": {
+                "name": "AudioAnalysis",
+                "fields": {
+                    "Summary": {
+                        "type": "string",
+                        "description": "A one-paragraph summary of the conversation."
+                    }
+                }
+            },
+            "warnings": [],
+            "status": "ready",
+            "processingLocation": "geography",
+            "mode": "standard"
+        },
+        {
+            "analyzerId": "prebuilt-documentAnalyzer",
+            "description": "Extract various content and layout elements such as words, paragraphs, and tables from documents.",
+            "createdAt": "2025-05-01T00:00:00Z",
+            "config": {
+                "returnDetails": true,
+                "enableOcr": true,
+                "enableLayout": true,
+                "enableFormula": false,
+                "disableContentFiltering": false,
+                "tableFormat": "html",
+                "estimateFieldSourceAndConfidence": false
+            },
+            "fieldSchema": {
+                "name": "DocumentAnalysis",
+                "fields": {
+                    "Summary": {
+                        "type": "string",
+                        "description": "A one-paragraph description of the document."
+                    }
+                }
+            },
+            "warnings": [],
+            "status": "ready",
+            "processingLocation": "geography",
+            "mode": "standard"
+        },
+        {
+            "analyzerId": "prebuilt-imageAnalyzer",
+            "description": "Analyze images to generate descriptions.",
+            "createdAt": "2025-05-01T00:00:00Z",
+            "config": {
+                "returnDetails": true,
+                "enableOcr": false,
+                "disableContentFiltering": false
+            },
+            "fieldSchema": {
+                "name": "ImageAnalysis",
+                "fields": {
+                    "Summary": {
+                        "type": "string",
+                        "description": "A one-paragraph description of the image."
+                    }
+                }
+            },
+            "warnings": [],
+            "status": "ready",
+            "processingLocation": "geography",
+            "mode": "standard"
+        },
+        {
+            "analyzerId": "prebuilt-invoice",
+            "description": "Extract invoice document fields.",
+            "createdAt": "2025-05-01T00:00:00Z",
+            "config": {
+                "returnDetails": true,
+                "enableOcr": true,
+                "enableLayout": true,
+                "enableFormula": false,
+                "disableContentFiltering": false,
+                "estimateFieldSourceAndConfidence": true
+            },
+            "fieldSchema": {
+                "name": "InvoiceAnalysis",
+                "fields": {
+                    "CustomerName": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The full name of the customer, including the primary company name and associated identifiers such as C/O (Care Of), BU# (Business Unit number), ATTN: (Attention to), department names, or other relevant details if existing."
+                    },
+                    "InvoiceDate": {
+                        "type": "date",
+                        "method": "extract"
+                    },
+                    "CustomerId": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "PurchaseOrder": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "InvoiceId": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The unique identifier of the invoice, often named 'Invoice Number'"
+                    },
+                    "DueDate": {
+                        "type": "date",
+                        "method": "extract"
+                    },
+                    "VendorName": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "VendorAddress": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "VendorAddressRecipient": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "CustomerAddress": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "CustomerAddressRecipient": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The recepient of customer addresss, including the recepient and associated identifiers such as C/O (Care Of), BU# (Business Unit number), ATTN: (Attention to), department names, or other relevant details if existing. Ensure that all parts related to the customer’s recepient identification are included to provide complete context."
+                    },
+                    "BillingAddress": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The explicit billing address of the customer."
+                    },
+                    "BillingAddressRecipient": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "ShippingAddress": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The explicit shipping address of the customer."
+                    },
+                    "ShippingAddressRecipient": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "SubTotal": {
+                        "type": "number",
+                        "method": "extract"
+                    },
+                    "TotalDiscount": {
+                        "type": "number",
+                        "method": "extract"
+                    },
+                    "TotalTax": {
+                        "type": "number",
+                        "method": "extract"
+                    },
+                    "InvoiceTotal": {
+                        "type": "number",
+                        "method": "extract"
+                    },
+                    "AmountDue": {
+                        "type": "number",
+                        "method": "extract"
+                    },
+                    "PreviousUnpaidBalance": {
+                        "type": "number",
+                        "method": "extract",
+                        "description": "Explicit previously unpaid balance. Please make sure it is **unpaid**, not the total amount of the previous invoice."
+                    },
+                    "RemittanceAddress": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The explicit address to which the payment or remittance should be sent."
+                    },
+                    "RemittanceAddressRecipient": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "ServiceAddress": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The explicit address where the service was provided."
+                    },
+                    "ServiceAddressRecipient": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "VendorTaxId": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The government ID number associated with the vendor"
+                    },
+                    "CustomerTaxId": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The government ID number associated with the customer"
+                    },
+                    "PaymentTerm": {
+                        "type": "string",
+                        "method": "extract"
+                    },
+                    "TaxDetails": {
+                        "type": "array",
+                        "method": "extract",
+                        "description": "The tax details of the invoice.",
+                        "items": {
+                            "type": "object",
+                            "method": "extract",
+                            "properties": {
+                                "Amount": {
+                                    "type": "number",
+                                    "method": "extract"
+                                },
+                                "Rate": {
+                                    "type": "number",
+                                    "method": "extract"
+                                }
+                            }
+                        }
+                    },
+                    "Items": {
+                        "type": "array",
+                        "method": "extract",
+                        "items": {
+                            "type": "object",
+                            "method": "extract",
+                            "properties": {
+                                "TotalPrice": {
+                                    "type": "number",
+                                    "method": "extract",
+                                    "description": "The total amount of the line item."
+                                },
+                                "Date": {
+                                    "type": "date",
+                                    "method": "extract"
+                                },
+                                "Description": {
+                                    "type": "string",
+                                    "method": "extract"
+                                },
+                                "Quantity": {
+                                    "type": "number",
+                                    "method": "extract"
+                                },
+                                "ProductCode": {
+                                    "type": "string",
+                                    "method": "extract",
+                                    "description": "Product code, product number, or SKU associated with the specific line item"
+                                },
+                                "TaxAmount": {
+                                    "type": "number",
+                                    "method": "extract",
+                                    "description": "The tax amount of the line item."
+                                },
+                                "TaxRate": {
+                                    "type": "number",
+                                    "method": "extract"
+                                },
+                                "Unit": {
+                                    "type": "string",
+                                    "method": "extract"
+                                },
+                                "UnitPrice": {
+                                    "type": "number",
+                                    "method": "extract",
+                                    "description": "The net or gross price of one unit of the item"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "warnings": [],
+            "status": "ready",
+            "processingLocation": "geography",
+            "mode": "standard"
+        },
+        {
+            "analyzerId": "prebuilt-videoAnalyzer",
+            "description": "Analyze videos to extract transcript and description for each segment.",
+            "createdAt": "2025-05-01T00:00:00Z",
+            "config": {
+                "returnDetails": true,
+                "enableFace": false,
+                "disableContentFiltering": false,
+                "segmentationMode": "auto",
+                "disableFaceBlurring": false
+            },
+            "fieldSchema": {
+                "name": "VideoAnalysis",
+                "fields": {
+                    "Segments": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "SegmentId": {
+                                    "type": "string"
+                                },
+                                "StartTimeMs": {
+                                    "type": "integer"
+                                },
+                                "EndTimeMs": {
+                                    "type": "integer"
+                                },
+                                "Description": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "warnings": [],
+            "status": "ready",
+            "processingLocation": "geography",
+            "mode": "standard"
+        },
+        {
+            "analyzerId": "prebuilt-contract",
+            "description": "Extract contract document fields.",
+            "createdAt": "2025-05-01T00:00:00Z",
+            "config": {
+                "returnDetails": true,
+                "enableOcr": true,
+                "enableLayout": true,
+                "enableFormula": false,
+                "disableContentFiltering": false,
+                "estimateFieldSourceAndConfidence": true
+            },
+            "fieldSchema": {
+                "name": "ContractAnalysis",
+                "description": "Automated contract processing with customizable intelligence that supports field extraction and generation tailored to your business needs.",
+                "fields": {
+                    "Title": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "Contract title"
+                    },
+                    "ContractId": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "Contract identification code"
+                    },
+                    "Parties": {
+                        "type": "array",
+                        "method": "generate",
+                        "description": "List of legal parties",
+                        "items": {
+                            "type": "object",
+                            "method": "generate",
+                            "description": "Legal party",
+                            "properties": {
+                                "Name": {
+                                    "type": "string",
+                                    "method": "extract",
+                                    "description": "Name of legal party"
+                                },
+                                "Address": {
+                                    "type": "string",
+                                    "method": "extract",
+                                    "description": "Address of legal party"
+                                },
+                                "ReferenceName": {
+                                    "type": "string",
+                                    "method": "extract",
+                                    "description": "Name used throughout the contract as reference to the legal party"
+                                },
+                                "Clause": {
+                                    "type": "string",
+                                    "method": "extract",
+                                    "description": "Full description of the party"
+                                }
+                            }
+                        }
+                    },
+                    "ExecutionDate": {
+                        "type": "date",
+                        "method": "extract",
+                        "description": "Date when the agreement was fully signed and agreed upon by all parties"
+                    },
+                    "EffectiveDate": {
+                        "type": "date",
+                        "method": "extract",
+                        "description": "Date when the contract starts to be in effect"
+                    },
+                    "ExpirationDate": {
+                        "type": "date",
+                        "method": "extract",
+                        "description": "Date when the contract ends to be in effect"
+                    },
+                    "ContractDuration": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "Contract terms"
+                    },
+                    "RenewalDate": {
+                        "type": "date",
+                        "method": "extract",
+                        "description": "Date when the contract needs to be renewed by"
+                    },
+                    "Jurisdictions": {
+                        "type": "array",
+                        "method": "generate",
+                        "description": "List of jurisdictions",
+                        "items": {
+                            "type": "object",
+                            "method": "generate",
+                            "description": "A location of the court agreed by both parties where any arising dispute out of or in connection with the agreement should be filed",
+                            "properties": {
+                                "Clause": {
+                                    "type": "string",
+                                    "method": "extract",
+                                    "description": "Full description of the jurisdiction"
+                                },
+                                "Region": {
+                                    "type": "string",
+                                    "method": "extract",
+                                    "description": "Court location"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "warnings": [],
+            "status": "ready",
+            "processingLocation": "geography",
+            "mode": "standard"
+        },
+        {
+            "analyzerId": "CDM-Smith-Tax-Analyzer",
+            "description": "This is a customer analyzer built to analyze Tax documents using a custom schema",
+            "tags": {
+                "projectId": "fcbf5088-1741-45a4-9b8e-2339f126eaaa",
+                "templateId": "document-2025-05-01"
+            },
+            "createdAt": "2025-08-11T21:13:14Z",
+            "lastModifiedAt": "2025-08-11T21:13:14Z",
+            "baseAnalyzerId": "prebuilt-documentAnalyzer",
+            "config": {
+                "returnDetails": true,
+                "enableOcr": true,
+                "enableLayout": true,
+                "enableFormula": false,
+                "disableContentFiltering": false,
+                "tableFormat": "html",
+                "estimateFieldSourceAndConfidence": false
+            },
+            "fieldSchema": {
+                "fields": {
+                    "taxpayer_name": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "Extract the primary taxpayer's full name or business entity name. Look for company names, individual names, or business entity names on the document"
+                    },
+                    "tax_jurisdiction": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The governmental authority or jurisdiction responsible for the tax. Examples: 'Federal/IRS', 'South Carolina', 'Mecklenburg County', 'City of Charlotte', 'California', 'Texas', 'New York State"
+                    },
+                    "notice_type": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The type of tax notice or document. Examples: 'Sales and Use Tax Assessment', 'Property Tax Bill', 'IRS Balance Due Notice', 'Payroll Tax Late Deposit Penalty', 'Federal Excise Tax Examination', 'Business Privilege License Tax', 'Workers Compensation Audit', 'Franchise Tax Notice', 'Corporation Tax Audit Assessment"
+                    },
+                    "ein_tax_id": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "Employer Identification Number (EIN) or other tax identification number assigned to the taxpayer"
+                    },
+                    "total_amount_due": {
+                        "type": "number",
+                        "method": "extract",
+                        "description": "The total monetary amount owed including tax, penalties, and interest. Convert currency format (e.g., '$24,567.89') to numerical value"
+                    },
+                    "filing_deadline": {
+                        "type": "date",
+                        "method": "extract",
+                        "description": "The due date for payment or filing to avoid additional penalties. Look for 'Due Date' or similar field"
+                    },
+                    "notice_number": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The unique identifier or reference number for the tax notice. Examples: 'AST-2025-447821', 'CP14-0001', 'SUTA-2025-001"
+                    },
+                    "notice_date": {
+                        "type": "date",
+                        "method": "extract",
+                        "description": "The date the tax notice was generated or issued"
+                    },
+                    "taxpayer_address": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "Complete mailing address of the taxpayer including street, city, state, and ZIP code"
+                    },
+                    "tax_authority_address": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "Complete address of the issuing tax authority or department"
+                    },
+                    "tax_period": {
+                        "type": "string",
+                        "method": "extract",
+                        "description": "The tax period or year this assessment covers, if specified in the document"
+                    }
+                }
+            },
+            "warnings": [],
+            "status": "ready",
+            "processingLocation": "geography",
+            "mode": "standard"
+        }
+    ]
+}

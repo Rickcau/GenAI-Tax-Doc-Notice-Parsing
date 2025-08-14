@@ -1,0 +1,47 @@
+{
+  "description": "Tax Document Analyzer - Example Schema",
+  "baseAnalyzerId": "prebuilt-documentAnalyzer",
+  "config": {
+    "returnDetails": true,
+    "estimateFieldSourceAndConfidence": true,
+    "enableOcr": true,
+    "enableLayout": true,
+    "enableFormula": false,
+    "disableContentFiltering": false,
+    "tableFormat": "html"
+  },
+  "fieldSchema": {
+    "fields": {
+      "taxpayer_name": {
+        "type": "string",
+        "method": "extract",
+        "description": "Extract the primary taxpayer's full name or business entity name"
+      },
+      "tax_jurisdiction": {
+        "type": "string",
+        "method": "extract",
+        "description": "The governmental authority responsible for the tax"
+      },
+      "tax_type": {
+        "type": "string",
+        "method": "extract",
+        "description": "The type of tax (e.g., income, sales, property, etc.)"
+      },
+      "tax_period": {
+        "type": "string",
+        "method": "extract",
+        "description": "The time period covered by the tax notice (e.g., Q1 2025, Jan-Mar 2025)"
+      },
+      "amount_due": {
+        "type": "string",
+        "method": "extract",
+        "description": "The total amount due according to the tax notice"
+      },
+      "due_date": {
+        "type": "string",
+        "method": "extract",
+        "description": "The date by which payment must be made"
+      }
+    }
+  }
+}

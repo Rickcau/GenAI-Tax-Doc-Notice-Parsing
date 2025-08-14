@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "blob_trigger_tax_doc_ingest": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7084",
+      "launchBrowser": false
+    }
+  }
+}
