@@ -2,6 +2,9 @@
 
 A comprehensive Azure-based solution for automating the receipt, processing, and routing of tax documents using Logic Apps Standard, Azure AI Content Understanding, and Microsoft 365 integration.
 
+# IMPORTANT NOTE #
+I have not started build any logic apps for this yet.
+
 ## 🎯 Solution Overview
 
 This solution automates the entire tax document workflow:
@@ -16,16 +19,24 @@ This solution automates the entire tax document workflow:
 ## 📁 Project Structure
 
 ```
-GENAI-TAX-DOC-NOTICE-PARSING/  (root/workspace)
-├── logic-apps/                 (container for all Logic App workflows)
-│   ├── EmailMonitoring/        (workflow 1)
+GENAI-TAX-DOC-NOTICE-PARSING/        (root/workspace)
+├── blob-trigger-tax-doc-ingest/     (container for Azure Function Blob Trigger)
+│   ├── Functions/                   (container for all Azure Function logic)
+│   ├── Models/                      (container for all Models)
+│   ├── Services/                    (container for all Services)
+│   │   └── BlobFileContext.cs
+│   │   └── ContentUnderstandingResult.cs
+│   │   └── ContentUnderstandingService.cs
+│   ├── Utils/                       (container for all Utility related classes)
+│   ├── Blob-Trigger-Tax-Doc.cs      (Azure Function - Entry point for Blob Trigger)
+│   ├── host.json   
+│   ├── Program.cs                   (Startup program for the Azure Function)
+│   └── local.settings.example.json. (example local.settings.json file)
+├── logic-apps/                   (container for all Logic App workflows)
+│   ├── EmailMonitoring/        (monitors mailbox for tax documents)
 │   │   └── workflow.json
-│   ├── Artifacts/              (shared Logic Apps artifacts)
-│   │   ├── Maps/
-│   │   ├── Rules/
-│   │   └── Schemas/
-│   ├── host.json               (Logic Apps configuration)
-│   └── local.settings.json     (Logic Apps settings)
+│   ├── NotifyTeam/             (notifies tax team via Microsoft Teams that action needs to be taken)
+│   │   └── workflow.json
 ├── api/                        (REST APIs)
 ├── ui/                         (Frontend application)
 └── docs/                       (Documentation)
