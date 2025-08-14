@@ -64,7 +64,7 @@ GENAI-TAX-DOC-NOTICE-PARSING/        (root/workspace)
 └── docs/                            (Documentation)
 ```
 
-## 🏗️ Architecture XX
+## 🏗️ Architecture 
 
 ## TBD - Changed the approach a bit so I need to clean this up. **Work in progress**
 
