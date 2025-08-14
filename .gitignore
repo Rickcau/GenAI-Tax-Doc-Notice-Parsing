@@ -23,6 +23,7 @@ appsettings.json
 local.settings.json
 internal_readme.md
 docs/tax-docs-customer/
+curl/internal_readnme.md
 
 node_modules
 dist

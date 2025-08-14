@@ -32,14 +32,36 @@ GENAI-TAX-DOC-NOTICE-PARSING/        (root/workspace)
 │   ├── host.json   
 │   ├── Program.cs                   (Startup program for the Azure Function)
 │   └── local.settings.example.json. (example local.settings.json file)
-├── logic-apps/                   (container for all Logic App workflows)
-│   ├── EmailMonitoring/        (monitors mailbox for tax documents)
+├── logic-apps/                      (container for all Logic App workflows)
+│   ├── EmailMonitoring/             (monitors mailbox for tax documents)
 │   │   └── workflow.json
-│   ├── NotifyTeam/             (notifies tax team via Microsoft Teams that action needs to be taken)
+│   ├── NotifyTeam/                  (notifies tax team via Microsoft Teams that action needs to be taken)
 │   │   └── workflow.json
-├── api/                        (REST APIs)
-├── ui/                         (Frontend application)
-└── docs/                       (Documentation)
+├── api/                             (REST APIs - TBD)
+├── ui/                              (Frontend application - TBD)
+├── m365bot/                         (FM365Bot - Chat with Documents)
+├── images/                          (Frontend application)
+├── infrastructure/                  (Infrastructure as Code - ARM/Bicep/Terraform - TBD) 
+├── schemas/                         (JSON Schemas for customer Content Understanding Analyzer)
+├── scrap                            (container for various items to help with debugging)
+├── scripts/                         (container for various scripts)
+│   └── content-understanding/
+│   │   └── Create-ContentAnalyzer.ps1   
+│   │   └── Get-ContentAnalyzerStatus.ps1   
+│   │   └── List-ContentAnalyzers.ps1
+│   │   └── Manage-ContentAnalyzer.ps1
+│   │   └── Remove-ContentAnalyzer.ps1
+│   │   └── README.MD  
+│   ├── curl/
+│   │   └── readme.md                (readme file with instructions on how to use the curl with Content Understanding API)    
+│   ├── upload-file-to-container/   
+│   │   └── Upload-TaxDocument.ps1
+│   │   └── upload-file-v2.ps1
+│   │   └── readme.md  
+├── tools/  
+│   └── Synthetic-Tax-Doc-PDF-Generator/
+│   │   └── tax_documents.html       (Simple HTML/JavaScript UI to generate synthetic tax documents)
+└── docs/                            (Documentation)
 ```
 
 ## 🏗️ Architecture
